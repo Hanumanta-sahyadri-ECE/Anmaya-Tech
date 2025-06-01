@@ -1,1 +1,0 @@
-# Anmaya-Tech
