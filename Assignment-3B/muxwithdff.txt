@@ -1,0 +1,30 @@
+DESIGN CODDE
+
+module dff_with_mux(input clk, input a, input s, output reg q);
+  wire d;
+  assign d = (s == 0) ? a : q;
+  always @(posedge clk) begin
+    q <= d;
+  end
+endmodule
+
+
+
+TEST_BENCH_CODE
+
+`timescale 1ns / 1ps
+module tb_dff_with_mux;
+  reg clk, a, s;
+  wire q;
+  dff_with_mux uut (.clk(clk), .a(a), .s(s), .q(q));
+  initial begin clk = 0; forever #5 clk = ~clk; end
+  initial begin
+    a = 0; s = 0;
+    #10 a = 1; s = 0;
+    #10 a = 0; s = 0;
+    #10 a = 1; s = 1;
+    #10 a = 0; s = 1;
+    #10 a = 1; s = 0;
+    #10 $finish;
+  end
+endmodule
